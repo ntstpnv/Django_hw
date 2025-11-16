@@ -3,11 +3,13 @@
 {% block content %}
     <h2>{{ title }}</h2>
 
-    {% for file in files %}
-        {{ file }}
+    {% if recipe %}
+        {% for k, v in recipe.items %}
+            {{ k }}: {{ v }}
+            <br>
+        {% endfor %}
         <br>
-    {% endfor %}
+    {% endif %}
 
-    <br>
     <a href="{% url path %}">Назад</a>
 {% endblock content %}

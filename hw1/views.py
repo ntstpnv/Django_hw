@@ -2,34 +2,48 @@ from os import listdir
 
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse
 
 
-def home(request: HttpRequest) -> HttpResponse:
+def hw1(request: HttpRequest) -> HttpResponse:
     return render(
         request,
-        "hw1/home.html",
+        "menu.html",
         {
-            "pages": {
-                "Показать текущее время": reverse("current_time"),
-                "Показать содержимое рабочей директории": reverse("workdir"),
-            }
+            "title": "Выберите задание",
+            "pages": [
+                {
+                    "title": "Показать текущее время",
+                    "path": "get_current_time",
+                },
+                {
+                    "title": "Показать содержимое рабочей директории",
+                    "path": "get_workdir",
+                },
+            ],
+            "back": True,
+            "path": "home",
         },
     )
 
 
-def current_time(request: HttpRequest) -> HttpResponse:
+def get_current_time(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "hw1/current_time.html",
+        {
+            "title": "Текущее время",
+            "path": "hw1",
+        },
     )
 
 
-def workdir(request: HttpRequest) -> HttpResponse:
+def get_workdir(request: HttpRequest) -> HttpResponse:
     return render(
         request,
         "hw1/workdir.html",
         {
+            "title": "Рабочая директория",
             "files": listdir(),
+            "path": "hw1",
         },
     )

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+
+    {% for page in pages %}
+        <a href="{% url page.path %}">{{ page.title }}</a>
+        {% if not forloop.last %}
+            <br>
+        {% endif %}
+    {% endfor %}
+
+    {% if back %}
+        <br>
+        <br>
+        <a href="{% url path %}">Назад</a>
+    {% endif %}
+{% endblock content %}

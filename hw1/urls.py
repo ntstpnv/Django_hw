@@ -1,9 +1,10 @@
 from django.urls import path
+
 from hw1 import views
 
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("current_time/", views.current_time, name="current_time"),
-    path("workdir/", views.workdir, name="workdir"),
+    path("", views.hw1, name="hw1"),
+    path("current_time/", views.get_current_time, name="get_current_time"),
+    path("workdir/", views.get_workdir, name="get_workdir"),
 ]
