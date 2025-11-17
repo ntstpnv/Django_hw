@@ -1,3 +1,6 @@
+import csv
+
+from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
@@ -41,10 +44,10 @@ def hw2(request: HttpRequest) -> HttpResponse:
                     "title": "Показать список рецептов",
                     "path": "get_recipes",
                 },
-                # {
-                #     "title": "Показать список остановок",
-                #     "path": "get_stops",
-                # },
+                {
+                    "title": "Показать список остановок",
+                    "path": "get_stops",
+                },
             ],
             "back": True,
             "path": "home",
@@ -86,5 +89,31 @@ def get_recipe(request: HttpRequest, dish: str) -> HttpResponse:
     )
 
 
+def get_data() -> tuple[list[str], list[list[str]]]:
+    with open('data-752-2025-11-05.csv', 'r', encoding='utf-8') as file:
+        reader = csv.reader(file, delimiter=';')
+
+        _ = next(reader)
+
+        headers = [header for i, header in enumerate(next(reader)) if i in (1, 6)]
+        stops = [[value for i, value in enumerate(stop) if i in (1, 6)] for stop in list(reader)]
+
+        return headers, stops
+
+
+HEADERS, STOPS = get_data()
+
+
 def get_stops(request: HttpRequest) -> HttpResponse:
-    pass
+    stops = Paginator(STOPS, 10)
+
+    return render(
+        request,
+        "hw2/stops.html",
+        {
+            "title": "Остановки наземного транспорта",
+            "headers": HEADERS,
+            "stops": stops.get_page(int(request.GET.get("page", "1"))),
+            "path": "hw2",
+        },
+    )
