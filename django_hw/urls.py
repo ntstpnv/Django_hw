@@ -22,8 +22,9 @@ from django_hw import views
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
     path("", views.home, name="home"),
+    path("admin/", admin.site.urls),
     path("hw1/", include("hw1.urls")),
     path("hw2/", include("hw2.urls")),
+    path("hw3/", include("hw3.urls")),
 ]

@@ -5,11 +5,9 @@
 
     {% if recipe %}
         {% for k, v in recipe.items %}
-            {{ k }}: {{ v }}
-            <br>
+            {{ k }}: {{ v }}<br>
         {% endfor %}
-        <br>
     {% endif %}
 
-    <a href="{% url path %}">Назад</a>
+    <br><a href="{% url path %}">Назад</a>
 {% endblock content %}

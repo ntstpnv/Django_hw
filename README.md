@@ -36,8 +36,16 @@
 
 ## /hw2/stops/
 
-![page1](images/page1.png)
+![](images/page1.png)
 
 ## /hw2/stops/?page=2
 
-![page2](images/page2.png)
+![](images/page2.png)
+
+## /hw3/
+
+![](images/hw3.png)
+
+## /hw3/catalog/
+
+![](images/catalog.gif)

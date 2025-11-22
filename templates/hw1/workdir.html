@@ -4,10 +4,8 @@
     <h2>{{ title }}</h2>
 
     {% for file in files %}
-        {{ file }}
-        <br>
+        {{ file }}<br>
     {% endfor %}
 
-    <br>
-    <a href="{% url path %}">Назад</a>
+    <br><a href="{% url path %}">Назад</a>
 {% endblock content %}

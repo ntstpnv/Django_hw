@@ -90,13 +90,16 @@ def get_recipe(request: HttpRequest, dish: str) -> HttpResponse:
 
 
 def get_data() -> tuple[list[str], list[list[str]]]:
-    with open('data-752-2025-11-05.csv', 'r', encoding='utf-8') as file:
-        reader = csv.reader(file, delimiter=';')
+    with open("data-752-2025-11-05.csv", "r", encoding="utf-8") as file:
+        reader = csv.reader(file, delimiter=";")
 
         _ = next(reader)
 
         headers = [header for i, header in enumerate(next(reader)) if i in (1, 6)]
-        stops = [[value for i, value in enumerate(stop) if i in (1, 6)] for stop in list(reader)]
+        stops = [
+            [value for i, value in enumerate(stop) if i in (1, 6)]
+            for stop in list(reader)
+        ]
 
         return headers, stops
 

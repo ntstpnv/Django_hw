@@ -4,10 +4,8 @@
     <h2>{{ title }}</h2>
 
     {% for recipe in recipes %}
-        <a href="{% url recipe.path recipe.dish %}">{{ recipe.title }}</a>
-        <br>
+        <a href="{% url recipe.path recipe.dish %}">{{ recipe.title }}</a><br>
     {% endfor %}
 
-    <br>
-    <a href="{% url path %}">Назад</a>
+    <br><a href="{% url path %}">Назад</a>
 {% endblock content %}
