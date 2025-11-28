@@ -17,3 +17,5 @@ python manage.py import_phones <название_приложения>
 | `/hw3/catalog/<slug-phone>/` | Детальная информация                   |
 
 ![](images/catalog.gif)
+
+hw1 hw2 hw4

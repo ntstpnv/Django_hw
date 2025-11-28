@@ -21,6 +21,10 @@ def home(request: HttpRequest) -> HttpResponse:
                     "title": "hw3",
                     "path": "hw3",
                 },
+                {
+                    "title": "hw4",
+                    "path": "hw4",
+                },
             ],
             "back": False,
         },
