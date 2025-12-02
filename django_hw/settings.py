@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_hw.apps.DjangoHwConfig",
-    "hw1.apps.Hw1Config",
-    "hw2.apps.Hw2Config",
+    "base.apps.BaseConfig",
+    "django_hw.apps.DjangoHWConfig",
+    "hw1.apps.HW1Config",
+    "hw2.apps.HW2Config",
     "hw3.apps.Hw3Config",
     "hw4.apps.Hw4Config",
 ]
@@ -66,7 +67,7 @@ ROOT_URLCONF = "django_hw.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

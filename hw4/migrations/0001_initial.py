@@ -5,118 +5,233 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name="Article",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=256, unique=True, verbose_name='Название')),
-                ('text', models.TextField(unique=True, verbose_name='Текст')),
-                ('image', models.ImageField(upload_to='', verbose_name='Изображение')),
-                ('published_at', models.DateTimeField(verbose_name='Дата публикации')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        max_length=256, unique=True, verbose_name="Название"
+                    ),
+                ),
+                ("text", models.TextField(unique=True, verbose_name="Текст")),
+                ("image", models.ImageField(upload_to="", verbose_name="Изображение")),
+                ("published_at", models.DateTimeField(verbose_name="Дата публикации")),
             ],
             options={
-                'verbose_name': 'Статья',
-                'verbose_name_plural': 'Статьи',
-                'ordering': ['-published_at'],
+                "verbose_name": "Статья",
+                "verbose_name_plural": "Статьи",
+                "ordering": ["-published_at"],
             },
         ),
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=80, unique=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Lecturer',
+            name="Lecturer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=80, unique=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Student',
+            name="Student",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=80, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=80, unique=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=32, unique=True, verbose_name='Название раздела')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=32, unique=True, verbose_name="Название раздела"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Раздел',
-                'verbose_name_plural': 'Разделы',
-                'ordering': ['name'],
+                "verbose_name": "Раздел",
+                "verbose_name_plural": "Разделы",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='CourseLecturer',
+            name="CourseLecturer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw4.course')),
-                ('lecturer_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw4.lecturer')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "course_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw4.course"
+                    ),
+                ),
+                (
+                    "lecturer_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw4.lecturer"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('course_id', 'lecturer_id')},
+                "unique_together": {("course_id", "lecturer_id")},
             },
         ),
         migrations.AddField(
-            model_name='course',
-            name='lecturers',
-            field=models.ManyToManyField(related_name='courses', through='hw4.CourseLecturer', to='hw4.lecturer'),
+            model_name="course",
+            name="lecturers",
+            field=models.ManyToManyField(
+                related_name="courses", through="hw4.CourseLecturer", to="hw4.lecturer"
+            ),
         ),
         migrations.CreateModel(
-            name='StudentCourse',
+            name="StudentCourse",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('course_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw4.course')),
-                ('student_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw4.student')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "course_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw4.course"
+                    ),
+                ),
+                (
+                    "student_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw4.student"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('student_id', 'course_id')},
+                "unique_together": {("student_id", "course_id")},
             },
         ),
         migrations.AddField(
-            model_name='student',
-            name='courses',
-            field=models.ManyToManyField(related_name='students', through='hw4.StudentCourse', to='hw4.course'),
+            model_name="student",
+            name="courses",
+            field=models.ManyToManyField(
+                related_name="students", through="hw4.StudentCourse", to="hw4.course"
+            ),
         ),
         migrations.CreateModel(
-            name='ArticleTag',
+            name="ArticleTag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_main', models.BooleanField(default=False, verbose_name='Основной раздел')),
-                ('article_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tag_ids', to='hw4.article')),
-                ('tag_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tag_ids', to='hw4.tag')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "is_main",
+                    models.BooleanField(default=False, verbose_name="Основной раздел"),
+                ),
+                (
+                    "article_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tag_ids",
+                        to="hw4.article",
+                    ),
+                ),
+                (
+                    "tag_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tag_ids",
+                        to="hw4.tag",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-is_main', 'tag_id__name'],
-                'unique_together': {('article_id', 'tag_id')},
+                "ordering": ["-is_main", "tag_id__name"],
+                "unique_together": {("article_id", "tag_id")},
             },
         ),
         migrations.AddField(
-            model_name='article',
-            name='tag_names',
-            field=models.ManyToManyField(related_name='articles', through='hw4.ArticleTag', to='hw4.tag'),
+            model_name="article",
+            name="tag_names",
+            field=models.ManyToManyField(
+                related_name="articles", through="hw4.ArticleTag", to="hw4.tag"
+            ),
         ),
     ]

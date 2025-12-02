@@ -1,49 +1,32 @@
 from os import listdir
 
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from base import views
 
 
-def hw1(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "menu.html",
+class HW1View(views.BaseTemplateView):
+    objects = [
         {
-            "title": "Выберите задание",
-            "pages": [
-                {
-                    "title": "Показать текущее время",
-                    "path": "get_current_time",
-                },
-                {
-                    "title": "Показать содержимое рабочей директории",
-                    "path": "get_workdir",
-                },
-            ],
-            "back": True,
-            "path": "home",
+            "title": "Показать текущее время",
+            "path": "current_time",
         },
-    )
-
-
-def get_current_time(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "hw1/current_time.html",
         {
-            "title": "Текущее время",
-            "path": "hw1",
+            "title": "Показать содержимое рабочей директории",
+            "path": "workdir",
         },
-    )
+    ]
+    back = "home"
 
 
-def get_workdir(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "hw1/workdir.html",
-        {
-            "title": "Рабочая директория",
-            "files": listdir(),
-            "path": "hw1",
-        },
-    )
+class CurrentTimeView(views.BaseTemplateView):
+    template_name = "hw1/current_time.html"
+
+    title = "Текущее время"
+    back = "hw1"
+
+
+class WorkdirView(views.BaseTemplateView):
+    template_name = "hw1/workdir.html"
+
+    title = "Рабочая директория"
+    objects = listdir()
+    back = "hw1"

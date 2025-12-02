@@ -24,10 +24,10 @@ from django_hw import views
 
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.HomeView.as_view(), name="home"),
     path("admin/", admin.site.urls),
     path("hw1/", include("hw1.urls")),
     path("hw2/", include("hw2.urls")),
-    path("hw3/", include("hw3.urls")),
-    path("hw4/", include("hw4.urls")),
+    # path("hw3/", include("hw3.urls")),
+    # path("hw4/", include("hw4.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # ?
