@@ -1,54 +1,48 @@
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect
 
+from base import views
 from hw3.models import Phone
 
 
-def hw3(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        "menu.html",
+class HW3View(views.BaseTemplateView):
+    objects = [
         {
-            "title": "Выберите задание",
-            "pages": [
-                {
-                    "title": "Показать каталог смартфонов",
-                    "path": "get_phones",
-                },
-                # {
-                #     "title": "",
-                #     "path": "",
-                # },
-            ],
-            "back": True,
-            "path": "home",
+            "title": "Показать каталог смартфонов",
+            "path": "phones",
         },
-    )
+    ]
+    back = "home"
 
 
-def get_phones(request: HttpRequest) -> HttpResponse:
-    phones = Phone.objects.all().order_by(request.GET.get("sort", "id"))
+class PhoneListView(views.BaseListView):
+    template_name = "hw3/phones.html"
 
-    return render(
-        request,
-        "hw3/phones.html",
-        {
-            "title": "Смартфоны",
-            "phones": phones,
-            "path": "hw3",
-        },
-    )
+    title = "Каталог смартфонов"
+    back = "hw3"
+
+    def get(self, request, *args, **kwargs):
+        request.session["sort"] = request.GET.get("sort", "name")
+
+        return (
+            super().get(request, *args, **kwargs)
+            if request.GET.get("sort")
+            else redirect(f"{request.path}?sort=name")
+        )
+
+    def get_queryset(self):
+        return Phone.objects.all().order_by(self.request.GET.get("sort", "id"))
 
 
-def get_phone(request: HttpRequest, phone: str) -> HttpResponse:
-    phone = Phone.objects.get(slug=phone)
+class PhoneView(views.BaseDetailView):
+    template_name = "hw3/phone.html"
 
-    return render(
-        request,
-        "hw3/phone.html",
-        {
-            "title": phone.name,
-            "phone": phone,
-            "path": "get_phones",
-        },
-    )
+    back = "phones"
+
+    def get_context_data(self, **kwargs):
+        return {
+            **super().get_context_data(**kwargs),
+            "sort": self.request.session.get("sort"),
+        }
+
+    def get_object(self, queryset=None):
+        return Phone.objects.get(slug=self.kwargs.get("slug"))

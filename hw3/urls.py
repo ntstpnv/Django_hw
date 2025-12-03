@@ -4,7 +4,7 @@ from hw3 import views
 
 
 urlpatterns = [
-    path("", views.hw3, name="hw3"),
-    path("catalog/", views.get_phones, name="get_phones"),
-    path("catalog/<slug:phone>/", views.get_phone, name="get_phone"),
+    path("", views.HW3View.as_view(), name="hw3"),
+    path("catalog/", views.PhoneListView.as_view(), name="phones"),
+    path("catalog/<slug:slug>/", views.PhoneView.as_view(), name="phone"),
 ]

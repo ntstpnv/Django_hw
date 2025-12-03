@@ -11,10 +11,10 @@ class HomeView(views.BaseTemplateView):
             "title": "Обработка запросов и шаблоны",
             "path": "hw2",
         },
-        # {
-        #     "title": "hw3",
-        #     "path": "hw3",
-        # },
+        {
+            "title": "Работа с ORM",
+            "path": "hw3",
+        },
         # {
         #     "title": "hw4",
         #     "path": "hw4",

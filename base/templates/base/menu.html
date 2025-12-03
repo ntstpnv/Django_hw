@@ -1,18 +1,14 @@
 {% extends 'base/base.html' %}
-
 {% block content %}
-    <h1>{{ title }}</h1><hr>
-
-    {% if not back_exists %}
-        <a href="{% url 'admin:index' %}">Панель администратора</a><br><br>
-    {% endif %}
-
-    {% for object in objects %}
-        <a href="{% url object.path %}">{{ object.title }}</a>
-        {% if not forloop.last %}<br>{% endif %}
-    {% endfor %}
-
-    {% if back_exists %}
-        <br><br><a href="{% url back %}">Назад</a>
-    {% endif %}
+    <h1>{{ title }}</h1>
+    <hr>
+{% for object in objects %}
+    <a href="{% url object.path %}">{{ object.title }}</a>
+    {% if not forloop.last %}<br>{% endif %}
+{% endfor %}
+{% if back_exists %}
+    <br>
+    <br>
+    <a href="{% url back %}">Назад</a>
+{% endif %}
 {% endblock content %}

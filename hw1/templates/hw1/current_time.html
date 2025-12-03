@@ -1,8 +1,7 @@
 {% extends 'base/base.html' %}
-
 {% block content %}
-    <h1>{{ title }}</h1><hr>
-
+    <h1>{{ title }}</h1>
+    <hr>
     <div id="utc"></div>
     <script>
     setInterval(() => {
@@ -12,6 +11,6 @@
         document.getElementById('utc').innerHTML = `(UTC) ${time} ${date}`;
     }, 1000);
     </script>
-
-    <br><a href="{% url back %}">Назад</a>
+    <br>
+    <a href="{% url back %}">Назад</a>
 {% endblock content %}
