@@ -15,8 +15,8 @@ class HomeView(views.BaseTemplateView):
             "title": "Работа с ORM",
             "path": "hw3",
         },
-        # {
-        #     "title": "hw4",
-        #     "path": "hw4",
-        # },
+        {
+            "title": "Работа с ORM, 2 часть",
+            "path": "hw4",
+        },
     ]

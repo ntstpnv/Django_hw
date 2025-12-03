@@ -7,29 +7,19 @@ from faker import Faker
 class Student(models.Model):
     name = models.CharField(max_length=80, unique=True)
 
-    courses = models.ManyToManyField(
-        "Course", through="StudentCourse", related_name="students"
-    )
+    courses = models.ManyToManyField("Course", "students", through="StudentCourse")
 
     class Meta:
         ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 class Course(models.Model):
     name = models.CharField(max_length=80, unique=True)
 
-    lecturers = models.ManyToManyField(
-        "Lecturer", through="CourseLecturer", related_name="courses"
-    )
+    lecturers = models.ManyToManyField("Lecturer", "courses", through="CourseLecturer")
 
     class Meta:
         ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 class Lecturer(models.Model):
@@ -38,63 +28,56 @@ class Lecturer(models.Model):
     class Meta:
         ordering = ["name"]
 
-    def __str__(self):
-        return self.name
-
 
 class StudentCourse(models.Model):
-    student_id = models.ForeignKey(Student, on_delete=models.CASCADE)
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student = models.ForeignKey("Student", models.CASCADE)
+    course = models.ForeignKey("Course", models.CASCADE)
 
     class Meta:
-        unique_together = ["student_id", "course_id"]
+        unique_together = ["student", "course"]
 
 
 class CourseLecturer(models.Model):
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
-    lecturer_id = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+    course = models.ForeignKey("Course", models.CASCADE)
+    lecturer = models.ForeignKey("Lecturer", models.CASCADE)
 
     class Meta:
-        unique_together = ["course_id", "lecturer_id"]
+        unique_together = ["course", "lecturer"]
 
 
 class Article(models.Model):
-    title = models.CharField("Название", max_length=256, unique=True)
-    text = models.TextField("Текст", unique=True)
-    image = models.ImageField("Изображение")
-    published_at = models.DateTimeField("Дата публикации")
+    title = models.CharField(max_length=256, unique=True)
+    text = models.TextField(unique=True)
+    image = models.ImageField()
+    published_at = models.DateTimeField()
 
-    tag_names = models.ManyToManyField("Tag", "articles", through="ArticleTag")
-
-    class Meta:
-        ordering = ["-published_at"]
-        verbose_name = "Статья"
-        verbose_name_plural = "Статьи"
+    tags = models.ManyToManyField("Tag", "articles", through="Scope")
 
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ["-published_at"]
+
 
 class Tag(models.Model):
-    name = models.CharField("Название раздела", max_length=32, unique=True)
-
-    class Meta:
-        ordering = ["name"]
-        verbose_name = "Раздел"
-        verbose_name_plural = "Разделы"
+    name = models.CharField(max_length=32, unique=True)
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["name"]
 
-class ArticleTag(models.Model):
-    article_id = models.ForeignKey("Article", models.CASCADE, "tag_ids")
-    tag_id = models.ForeignKey("Tag", models.CASCADE, "tag_ids")
-    is_main = models.BooleanField("Основной раздел", default=False)
+
+class Scope(models.Model):
+    article = models.ForeignKey("Article", models.CASCADE)
+    tag = models.ForeignKey("Tag", models.CASCADE)
+    is_main = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["-is_main", "tag_id__name"]
-        unique_together = ["article_id", "tag_id"]
+        ordering = ["-is_main", "tag__name"]
+        unique_together = ["article", "tag"]
 
 
 class DBManager:
@@ -129,4 +112,4 @@ class DBManager:
 
     @staticmethod
     def get_articles():
-        return Article.objects.prefetch_related("tag_ids__tag_id")
+        return Article.objects.prefetch_related("scope_set__tag")

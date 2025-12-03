@@ -52,11 +52,11 @@ class Command(BaseCommand):
                     for row in reader:
                         phones.objects.create(
                             name=row["name"],
+                            slug=slugify(row["name"]),
+                            release_date=date.fromisoformat(row["release_date"]),
                             price=int(row["price"]),
                             image=row["image"],
-                            release_date=date.fromisoformat(row["release_date"]),
                             lte_exists=row["lte_exists"] == "True",
-                            slug=slugify(row["name"]),
                         )
             self.stdout.write("[=====] Готово")
         except Exception as e:

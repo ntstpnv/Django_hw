@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "hw1.apps.HW1Config",
     "hw2.apps.HW2Config",
     "hw3.apps.HW3Config",
-    "hw4.apps.Hw4Config",
+    "hw4.apps.HW4Config",
 ]
 
 MIDDLEWARE = [

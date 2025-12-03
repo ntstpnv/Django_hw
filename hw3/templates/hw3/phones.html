@@ -9,7 +9,7 @@
             <a href="?sort=price">сначала недорогие</a> |
             <a href="?sort=-price">сначала дорогие</a>
         </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr);">
             {% for phone in object_list %}
                 <div>
                     <a href="{% url 'phone' phone.slug %}">{{ phone.name }} ({{ phone.release_date.year }})</a>

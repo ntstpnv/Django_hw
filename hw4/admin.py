@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
 
-from hw4.models import Article, Tag, ArticleTag
+from hw4.models import Article, Tag, Scope
 
 
 class ArticleTagInlineFormset(BaseInlineFormSet):
@@ -21,8 +21,8 @@ class ArticleTagInlineFormset(BaseInlineFormSet):
             raise ValidationError("Основным может быть только один раздел")
 
 
-class ArticleTagInline(admin.TabularInline):
-    model = ArticleTag
+class ScopeInline(admin.TabularInline):
+    model = Scope
     formset = ArticleTagInlineFormset
     extra = 1
 
@@ -30,7 +30,7 @@ class ArticleTagInline(admin.TabularInline):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     exclude = ["tags"]
-    inlines = [ArticleTagInline]
+    inlines = [ScopeInline]
     list_display = ["title", "published_at"]
     list_filter = ["published_at"]
     ordering = ["title"]

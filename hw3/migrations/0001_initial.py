@@ -4,23 +4,29 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Phone',
+            name="Phone",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=40, unique=True)),
-                ('slug', models.SlugField(max_length=40, unique=True)),
-                ('release_date', models.DateField()),
-                ('price', models.PositiveIntegerField()),
-                ('image', models.URLField(max_length=160, unique=True)),
-                ('lte_exists', models.BooleanField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=40, unique=True)),
+                ("slug", models.SlugField(max_length=40, unique=True)),
+                ("release_date", models.DateField()),
+                ("price", models.PositiveIntegerField()),
+                ("image", models.URLField(max_length=160, unique=True)),
+                ("lte_exists", models.BooleanField()),
             ],
         ),
     ]

@@ -1,50 +1,36 @@
-from typing import Any
-
-from django.http import HttpRequest, HttpResponse
-from django.views.generic import ListView, TemplateView
-
 from hw4.models import DBManager
+from base import views
 
 
-class HW4View(TemplateView):
-    template_name = "menu.html"
-
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        return {
-            **super().get_context_data(**kwargs),
-            "title": "Выберите задание",
-            "pages": [
-                {
-                    "title": "Показать курсы",
-                    "path": "get_courses",
-                },
-                {
-                    "title": "Показать статьи",
-                    "path": "get_articles",
-                },
-            ],
-            "back": True,
-            "path": "home",
-        }
+class HW4View(views.BaseTemplateView):
+    objects = [
+        {
+            "title": "Показать список инфоцыганских курсов",
+            "path": "courses",
+        },
+        {
+            "title": "Показать новостные статьи",
+            "path": "articles",
+        },
+    ]
+    back = "home"
 
 
-class CourseView(ListView):
+class CourseView(views.BaseListView):
     template_name = "hw4/courses.html"
     queryset = DBManager.get_courses()
 
-    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+    title = "Список инфоцыганских курсов"
+    back = "hw4"
+
+    def get(self, request, *args, **kwargs):
         if "generate" in request.GET:
             DBManager().generate()
         return super().get(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        return {
-            **super().get_context_data(**kwargs),
-            "title": "Инфоцыганские курсы",
-            "path": "hw4",
-        }
 
-
-class ArticleView(ListView):
-    template_name = "articles/news.html"
+class ArticleView(views.BaseListView):
+    template_name = "hw4/news.html"
     queryset = DBManager.get_articles()
+
+    back = "hw4"
