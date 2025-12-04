@@ -2,43 +2,35 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
 
-from hw4.models import Article, Tag, Scope
+from hw4.models import Article, Tag, ArticleTag
 
 
 class ArticleTagInlineFormset(BaseInlineFormSet):
     def clean(self):
         super().clean()
-        main_count = 0
-        for form in self.forms:
-            if form.cleaned_data.get("is_main") and not form.cleaned_data.get(
-                "DELETE", False
-            ):
-                main_count += 1
+        main = sum(
+            not form.cleaned_data.get("DELETE", False)
+            and form.cleaned_data.get("is_main", False)
+            for form in self.forms
+        )
 
-        if main_count == 0:
+        if not main:
             raise ValidationError("Укажите основной раздел")
-        if main_count > 1:
+        elif main > 1:
             raise ValidationError("Основным может быть только один раздел")
 
 
-class ScopeInline(admin.TabularInline):
-    model = Scope
+class ArticleTagInline(admin.TabularInline):
+    model = ArticleTag
     formset = ArticleTagInlineFormset
     extra = 1
 
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    exclude = ["tags"]
-    inlines = [ScopeInline]
-    list_display = ["title", "published_at"]
-    list_filter = ["published_at"]
-    ordering = ["title"]
-    search_fields = ["title", "published_at"]
+    inlines = [ArticleTagInline]
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ["name"]
-    ordering = ["name"]
-    search_fields = ["name"]
+    pass

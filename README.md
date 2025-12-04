@@ -39,6 +39,8 @@
 #### Загрузка тестовых данных:
 
 ```
+python manage.py makemigrations hw2
+python manage.py migrate hw2
 python manage.py loaddata hw2/recipes.json
 ```
 
@@ -71,7 +73,9 @@ python manage.py loaddata hw2/recipes.json
 #### Загрузка тестовых данных:
 
 ```
-python manage.py import_phones <название_приложения>
+python manage.py makemigrations hw3
+python manage.py migrate hw3
+python manage.py import_phones hw3
 ```
 
 ![](media/import_phones.png)
@@ -85,9 +89,7 @@ python manage.py import_phones <название_приложения>
 | URL                          | 
 |------------------------------|
 | `/hw3/`                      |
-| `/hw3/catalog/?sort=name`    | 
-| `/hw3/catalog/?sort=price`   | 
-| `/hw3/catalog/?sort=-price`  | 
+| `/hw3/catalog/?sort=`        |
 | `/hw3/catalog/<slug-phone>/` | 
 
 #### Визуализация:
@@ -98,11 +100,16 @@ python manage.py import_phones <название_приложения>
 
 #### Функционал:
 
-- дописать
+- Список инфоцыганских курсов с возможностью случайной генерации данных
+- Список новостных статей с главным и второстепенными тэгами
+- Inline-форма с валидацией выбора основного тэга новостной статьи
+- Навигация с возможностью вернуться на последнюю просмотренную страницу
 
 #### Загрузка тестовых данных:
 
 ```
+python manage.py makemigrations hw4
+python manage.py migrate hw4
 python manage.py loaddata hw4/articles.json
 ```
 

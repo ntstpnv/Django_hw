@@ -3,7 +3,9 @@
     <div style="text-align: center;">
         <h1>{{ title }}</h1>
         <hr>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px;">
+        <div style="display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    gap: 9px">
             {% for dish in page_obj.object_list %}
                 <div>
                     <p>

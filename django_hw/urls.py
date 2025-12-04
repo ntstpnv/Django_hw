@@ -30,4 +30,6 @@ urlpatterns = [
     path("hw2/", include("hw2.urls")),
     path("hw3/", include("hw3.urls")),
     path("hw4/", include("hw4.urls")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # ?
+]
+
+urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

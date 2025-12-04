@@ -5,7 +5,7 @@ from faker import Faker
 
 
 class Student(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=64, unique=True)
 
     courses = models.ManyToManyField("Course", "students", through="StudentCourse")
 
@@ -14,7 +14,7 @@ class Student(models.Model):
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=128, unique=True)
 
     lecturers = models.ManyToManyField("Lecturer", "courses", through="CourseLecturer")
 
@@ -23,7 +23,7 @@ class Course(models.Model):
 
 
 class Lecturer(models.Model):
-    name = models.CharField(max_length=80, unique=True)
+    name = models.CharField(max_length=64, unique=True)
 
     class Meta:
         ordering = ["name"]
@@ -46,12 +46,12 @@ class CourseLecturer(models.Model):
 
 
 class Article(models.Model):
-    title = models.CharField(max_length=256, unique=True)
-    text = models.TextField(unique=True)
     image = models.ImageField()
+    title = models.CharField(max_length=128, unique=True)
+    text = models.TextField(unique=True)
     published_at = models.DateTimeField()
 
-    tags = models.ManyToManyField("Tag", "articles", through="Scope")
+    tags = models.ManyToManyField("Tag", "articles", through="ArticleTag")
 
     def __str__(self):
         return self.title
@@ -70,9 +70,10 @@ class Tag(models.Model):
         ordering = ["name"]
 
 
-class Scope(models.Model):
-    article = models.ForeignKey("Article", models.CASCADE)
-    tag = models.ForeignKey("Tag", models.CASCADE)
+class ArticleTag(models.Model):
+    article = models.ForeignKey("Article", models.CASCADE, "article_ids")
+    tag = models.ForeignKey("Tag", models.CASCADE, "tag_ids")
+
     is_main = models.BooleanField(default=False)
 
     class Meta:
@@ -112,4 +113,4 @@ class DBManager:
 
     @staticmethod
     def get_articles():
-        return Article.objects.prefetch_related("scope_set__tag")
+        return Article.objects.prefetch_related("article_ids__tag")

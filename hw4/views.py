@@ -20,7 +20,7 @@ class CourseView(views.BaseListView):
     template_name = "hw4/courses.html"
     queryset = DBManager.get_courses()
 
-    title = "Список инфоцыганских курсов"
+    title = "Инфоцыганские курсы"
     back = "hw4"
 
     def get(self, request, *args, **kwargs):
