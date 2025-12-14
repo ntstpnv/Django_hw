@@ -19,4 +19,8 @@ class HomeView(views.BaseTemplateView):
             "title": "Работа с ORM, 2 часть",
             "path": "hw4",
         },
+        {
+            "title": "Знакомство с API на примере Django REST framework",
+            "path": "hw5",
+        },
     ]

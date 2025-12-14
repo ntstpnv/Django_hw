@@ -1,25 +1,25 @@
 from django.contrib import admin
 
-from hw2.models import Dish, Ingredient, Unit, Recipe
+from hw2 import models
 
 
 class RecipeInline(admin.TabularInline):
-    model = Recipe
+    model = models.Recipe
     extra = 1
 
 
-@admin.register(Dish)
+@admin.register(models.Dish)
 class DishAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
     inlines = [RecipeInline]
 
 
-@admin.register(Ingredient)
+@admin.register(models.Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Unit)
+@admin.register(models.Unit)
 class UnitAdmin(admin.ModelAdmin):
     pass

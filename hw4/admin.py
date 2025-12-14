@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.forms import BaseInlineFormSet
 
-from hw4.models import Article, Tag, ArticleTag
+from hw4 import models
 
 
 class ArticleTagInlineFormset(BaseInlineFormSet):
@@ -21,16 +21,16 @@ class ArticleTagInlineFormset(BaseInlineFormSet):
 
 
 class ArticleTagInline(admin.TabularInline):
-    model = ArticleTag
+    model = models.ArticleTag
     formset = ArticleTagInlineFormset
     extra = 1
 
 
-@admin.register(Article)
+@admin.register(models.Article)
 class ArticleAdmin(admin.ModelAdmin):
     inlines = [ArticleTagInline]
 
 
-@admin.register(Tag)
+@admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
     pass

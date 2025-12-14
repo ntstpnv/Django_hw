@@ -129,3 +129,5 @@ python manage.py loaddata hw4/articles.json
 #### Визуализация:
 
 ![](media/hw4.gif)
+
+hw5 дописать доки + поправить меню + тестовые данные
