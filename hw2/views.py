@@ -1,22 +1,23 @@
 from django.shortcuts import redirect
 
 from base import views
-from hw2.models import Dish
+from hw2 import models
 
 
-class HW2View(views.BaseTemplateView):
-    objects = [
+class HW2View(views.BaseListView):
+    queryset = [
         {
             "title": "Показать список кулинарных рецептов",
             "path": "recipes",
         },
     ]
+
     back = "home"
 
 
 class RecipeListView(views.BaseListView):
     template_name = "hw2/recipes.html"
-    model = Dish
+    queryset = models.Dish.objects.all()
     paginate_by = 3
 
     title = "Список кулинарных рецептов"
@@ -34,7 +35,7 @@ class RecipeListView(views.BaseListView):
 
 class RecipeView(views.BaseDetailView):
     template_name = "hw2/recipe.html"
-    queryset = Dish.objects.prefetch_related("recipe__ingredient__unit")
+    queryset = models.Dish.objects.prefetch_related("recipe__ingredient__unit")
 
     back = "recipes"
 
@@ -50,6 +51,7 @@ class RecipeView(views.BaseDetailView):
 
         return {
             **super().get_context_data(**kwargs),
+            "title": self.object.name,
             "objects": [
                 f"{dish.ingredient.name} - {dish.amount * servings} {dish.ingredient.unit.name}"
                 for dish in self.object.recipe.all()

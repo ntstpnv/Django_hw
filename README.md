@@ -4,6 +4,7 @@
 - [Обработка запросов и шаблоны](#hw2-обработка-запросов-и-шаблоны)
 - [Работа с ORM](#hw3-работа-с-orm)
 - [Работа с ORM, 2 часть](#hw4-работа-с-orm-2-часть)
+- [Знакомство с API на примере Django REST framework](#hw5-знакомство-с-api-на-примере-django-rest-framework)
 
 ## HW1: Знакомство с Django. Подготовка и запуск проекта
 
@@ -50,12 +51,12 @@ python manage.py loaddata hw2/recipes.json
 
 #### Маршрутизация:
 
-| URL                                     | 
-|-----------------------------------------|
-| `/admin/hw2/`                           |
-| `/hw2/`                                 |
-| `/hw2/recipes/?page=`                   |
-| `/hw2/recipes/<slug-recipe>/?servings=` | 
+| URL                                  | 
+|--------------------------------------|
+| `/admin/hw2/`                        |
+| `/hw2/`                              |
+| `/hw2/recipes/?page=`                |
+| `/hw2/recipes/<recipe>/?servings=`   | 
 
 #### Визуализация:
 
@@ -86,11 +87,11 @@ python manage.py import_phones hw3
 
 #### Маршрутизация:
 
-| URL                          | 
-|------------------------------|
-| `/hw3/`                      |
-| `/hw3/catalog/?sort=`        |
-| `/hw3/catalog/<slug-phone>/` | 
+| URL                      | 
+|--------------------------|
+| `/hw3/`                  |
+| `/hw3/catalog/?sort=`    |
+| `/hw3/catalog/<phone>/`  | 
 
 #### Визуализация:
 
@@ -119,15 +120,48 @@ python manage.py loaddata hw4/articles.json
 
 #### Маршрутизация:
 
-| URL              | 
-|------------------|
-| `/admin/hw4/`    |
-| `/hw4/`          |
-| `/hw4/courses/`  | 
-| `/hw4/articles/` |
+| URL               | 
+|-------------------|
+| `/admin/hw4/`     |
+| `/hw4/`           |
+| `/hw4/courses/`   | 
+| `/hw4/articles/`  |
 
 #### Визуализация:
 
 ![](media/hw4.gif)
 
-hw5 дописать доки + поправить меню + тестовые данные
+## HW5: Знакомство с API на примере Django REST framework
+
+#### Функционал:
+
+- REST API для управления датчиками температуры и их измерениями
+- Создание, просмотр и изменение датчиков через API
+- Добавление измерений температуры с возможностью прикрепления изображений
+- Просмотр списка датчиков с краткой информацией и детальной информации по каждому датчику
+- Навигация с возможностью вернуться в меню из интерфейса API
+
+#### Загрузка тестовых данных:
+
+```
+python manage.py makemigrations hw5
+python manage.py migrate hw5
+python manage.py loaddata hw5/sensors.json
+```
+
+#### Схема БД:
+
+![](media/hw5_db.png)
+
+#### Маршрутизация:
+
+| Метод     | URL                      | 
+|-----------|--------------------------|
+|           | `/hw5/`                  |
+| POST      | `/hw5/api/measurements/` |
+| GET, POST | `/hw5/api/sensors/ `     |
+| GET, PUT  | `/hw5/api/sensor/<pk>/ ` |
+
+#### Визуализация:
+
+![](media/hw5.gif)

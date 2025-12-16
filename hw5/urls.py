@@ -5,7 +5,7 @@ from hw5 import views
 
 urlpatterns = [
     path("", views.HW5View.as_view(), name="hw5"),
-    path("sensors/", views.SensorListCreate.as_view(), name="sensors"),
-    path("sensors/<int:pk>/", views.SensorDetail.as_view(), name="sensor"),
-    path("measurements/", views.MeasurementCreate.as_view(), name="measurement"),
+    path("api/measurements/", views.MeasurementCreate.as_view(), name="measurements"),
+    path("api/sensors/", views.SensorListAPIView.as_view(), name="sensors"),
+    path("api/sensors/<int:pk>/", views.SensorDetail.as_view(), name="sensor"),
 ]

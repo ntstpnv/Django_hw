@@ -2,7 +2,7 @@
 {% block content %}
     <h1>{{ title }}</h1>
     <hr>
-    {% for object in objects %}
+    {% for object in object_list %}
         <a href="{% url object.path %}">{{ object.title }}</a>
         {% if not forloop.last %}<br>{% endif %}
     {% endfor %}

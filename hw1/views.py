@@ -3,8 +3,8 @@ from os import listdir
 from base import views
 
 
-class HW1View(views.BaseTemplateView):
-    objects = [
+class HW1View(views.BaseListView):
+    queryset = [
         {
             "title": "Показать текущее время",
             "path": "current_time",
@@ -14,19 +14,20 @@ class HW1View(views.BaseTemplateView):
             "path": "workdir",
         },
     ]
+
     back = "home"
 
 
-class CurrentTimeView(views.BaseTemplateView):
+class CurrentTimeView(views.BaseListView):
     template_name = "hw1/current_time.html"
 
     title = "Текущее время"
     back = "hw1"
 
 
-class WorkdirView(views.BaseTemplateView):
+class WorkdirView(views.BaseListView):
     template_name = "hw1/workdir.html"
+    queryset = listdir()
 
     title = "Рабочая директория"
-    objects = listdir()
     back = "hw1"

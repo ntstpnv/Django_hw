@@ -1,21 +1,23 @@
 from django.shortcuts import redirect
 
 from base import views
-from hw3.models import Phone
+from hw3 import models
 
 
-class HW3View(views.BaseTemplateView):
-    objects = [
+class HW3View(views.BaseListView):
+    queryset = [
         {
             "title": "Показать каталог смартфонов",
             "path": "phones",
         },
     ]
+
     back = "home"
 
 
 class PhoneListView(views.BaseListView):
     template_name = "hw3/phones.html"
+    queryset = None
 
     title = "Каталог смартфонов"
     back = "hw3"
@@ -30,7 +32,7 @@ class PhoneListView(views.BaseListView):
         )
 
     def get_queryset(self):
-        return Phone.objects.all().order_by(self.request.GET.get("sort", "id"))
+        return models.Phone.objects.all().order_by(self.request.GET.get("sort"))
 
 
 class PhoneView(views.BaseDetailView):
@@ -41,8 +43,9 @@ class PhoneView(views.BaseDetailView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
+            "title": self.object.name,
             "sort": self.request.session.get("sort"),
         }
 
     def get_object(self, queryset=None):
-        return Phone.objects.get(slug=self.kwargs.get("slug"))
+        return models.Phone.objects.get(slug=self.kwargs.get("slug"))
