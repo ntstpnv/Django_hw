@@ -5,6 +5,8 @@
 - [Работа с ORM](#hw3-работа-с-orm)
 - [Работа с ORM, 2 часть](#hw4-работа-с-orm-2-часть)
 - [Знакомство с API на примере Django REST framework](#hw5-знакомство-с-api-на-примере-django-rest-framework)
+- [CRUD в DRF](#hw6-crud-в-drf)
+- [Разделение доступа в DRF](#hw7-разделение-доступа-в-drf)
 
 ## HW1: Знакомство с Django. Подготовка и запуск проекта
 
@@ -165,3 +167,11 @@ python manage.py loaddata hw5/sensors.json
 #### Визуализация:
 
 ![](media/hw5.gif)
+
+## HW6: CRUD в DRF
+
+дописать
+
+## HW7: Разделение доступа в DRF
+
+дописать

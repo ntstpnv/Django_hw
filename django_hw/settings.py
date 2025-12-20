@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
     "rest_framework",
     "base.apps.BaseConfig",
-    *[f"hw{i}.apps.HW{i}Config" for i in range(1, 6)],
+    *[f"hw{i}.apps.HW{i}Config" for i in range(1, 7)],
 ]
 
 INTERNAL_IPS = [

@@ -15,8 +15,8 @@ urlpatterns = [
     path("hw3/", include("hw3.urls")),
     path("hw4/", include("hw4.urls")),
     path("hw5/", include("hw5.urls")),
-    # path("hw6/api/", include("hw6.urls")),
-    # path("hw7/api/", include("hw7.urls")),
+    path("hw6/", include("hw6.urls")),
+    # path("hw7/api/", include("hw7.urls.py")),
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
     *(debug_toolbar_urls() if settings.DEBUG else []),
 ]
