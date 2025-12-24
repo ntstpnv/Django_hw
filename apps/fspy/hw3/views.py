@@ -1,17 +1,17 @@
 from django.conf import settings
 from django.shortcuts import redirect
 
-from apps.base import views
+from apps.menu import views
 from . import models
 
 
-class MenuView(views.BaseMenuView):
-    queryset = [settings.ITEM("Показать каталог смартфонов", "phones")]
+class MenuView(views.MenuView):
+    queryset = [settings.LINK("Показать каталог смартфонов", "phones")]
 
     back = "fspy"
 
 
-class PhoneListView(views.BaseMenuView):
+class PhoneListView(views.MenuView):
     template_name = "hw3/phones.html"
     queryset = None
 

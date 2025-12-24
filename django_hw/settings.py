@@ -59,7 +59,6 @@ def parser():
         re.compile(r'verbose_name = "(.*?)"'),
     ]
 
-    groups = set()
     apps = defaultdict(list)
 
     for root, _, files in os.walk("apps"):
@@ -72,22 +71,19 @@ def parser():
 
             INSTALLED_APPS.append(f"{name}.apps.{cls}")
 
-            if name == "apps.base":
+            if name == "apps.menu":
                 continue
 
             group = os.path.basename(os.path.dirname(root))
-            groups.add(group)
-
             app = os.path.basename(root)
-            app = ITEM(verbose_name, app)
-            apps[group].append(app)
+            link = LINK(verbose_name, app)
+            apps[group].append(link)
 
-    groups = [ITEM(group, group) for group in sorted(groups)]
-    return groups, apps
+    return apps
 
 
-ITEM = namedtuple("Item", ["title", "path"])
-GROUPS, APPS = parser()
+LINK = namedtuple("Link", ["title", "path"])
+APPS = parser()
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -104,7 +100,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "apps.base.urls"
+ROOT_URLCONF = "apps.menu.urls"
 
 TEMPLATES = [
     {

@@ -2,19 +2,19 @@ import os
 
 from django.conf import settings
 
-from apps.base import views
+from apps.menu import views
 
 
-class MenuView(views.BaseMenuView):
+class MenuView(views.MenuView):
     queryset = [
-        settings.ITEM("Показать текущее время", "current_time"),
-        settings.ITEM("Показать рабочую директорию", "workdir"),
+        settings.LINK("Показать текущее время", "current_time"),
+        settings.LINK("Показать рабочую директорию", "workdir"),
     ]
 
     back = "fspy"
 
 
-class CurrentTimeView(views.BaseMenuView):
+class CurrentTimeView(views.MenuView):
     template_name = "hw1/current_time.html"
     queryset = []
 
@@ -22,7 +22,7 @@ class CurrentTimeView(views.BaseMenuView):
     back = "hw1"
 
 
-class WorkdirView(views.BaseMenuView):
+class WorkdirView(views.MenuView):
     template_name = "hw1/workdir.html"
     queryset = os.listdir()
 

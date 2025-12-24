@@ -1,11 +1,11 @@
 from django.conf import settings
 from rest_framework import generics
 
-from apps.base import views
+from apps.menu import views
 from . import serializers, models
 
 
-class MenuView(views.BaseMenuView):
+class MenuView(views.MenuView):
     template_name = "hw5/sensors.html"
     queryset = None
 
@@ -14,8 +14,8 @@ class MenuView(views.BaseMenuView):
 
     def get_queryset(self):
         return [
-            settings.ITEM("/api/measurements/", "measurements"),
-            settings.ITEM("/api/sensors/", "sensors"),
+            settings.LINK("/api/measurements/", "measurements"),
+            settings.LINK("/api/sensors/", "sensors"),
             *list(models.Sensor.objects.all()),
         ]
 

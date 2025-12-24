@@ -1,19 +1,19 @@
 from django.conf import settings
 
-from apps.base import views
+from apps.menu import views
 from . import models
 
 
-class MenuView(views.BaseMenuView):
+class MenuView(views.MenuView):
     queryset = [
-        settings.ITEM("Показать инфоцыганские курсы", "courses"),
-        settings.ITEM("Показать новостные статьи", "articles"),
+        settings.LINK("Показать инфоцыганские курсы", "courses"),
+        settings.LINK("Показать новостные статьи", "articles"),
     ]
 
     back = "fspy"
 
 
-class CourseView(views.BaseMenuView):
+class CourseView(views.MenuView):
     template_name = "hw4/courses.html"
     queryset = models.DBManager.get_courses()
 
@@ -26,7 +26,7 @@ class CourseView(views.BaseMenuView):
         return super().get(request, *args, **kwargs)
 
 
-class ArticleView(views.BaseMenuView):
+class ArticleView(views.MenuView):
     template_name = "hw4/news.html"
     queryset = models.DBManager.get_articles()
 

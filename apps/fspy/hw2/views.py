@@ -1,17 +1,17 @@
 from django.conf import settings
 from django.shortcuts import redirect
 
-from apps.base import views
+from apps.menu import views
 from . import models
 
 
-class MenuView(views.BaseMenuView):
-    queryset = [settings.ITEM("Показать кулинарные рецепты", "recipes")]
+class MenuView(views.MenuView):
+    queryset = [settings.LINK("Показать кулинарные рецепты", "recipes")]
 
     back = "fspy"
 
 
-class RecipeListView(views.BaseMenuView):
+class RecipeListView(views.MenuView):
     template_name = "hw2/recipes.html"
     queryset = models.Dish.objects.all()
     paginate_by = 3

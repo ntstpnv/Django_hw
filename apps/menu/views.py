@@ -2,9 +2,9 @@ from django.conf import settings
 from django.views import generic
 
 
-class BaseMenuView(generic.ListView):
-    template_name = "base/menu.html"
-    queryset = settings.GROUPS
+class MenuView(generic.ListView):
+    template_name = "menu/menu.html"
+    queryset = [settings.LINK(group, group) for group in settings.APPS]
 
     title = "Выберите задание"
     back = None

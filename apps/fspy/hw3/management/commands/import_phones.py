@@ -47,9 +47,7 @@ class Command(BaseCommand):
                 phones.objects.all().delete()
 
                 self.stdout.write("[====*] Импорт новых данных")
-                with open(
-                    "apps/fspy/hw3/phones.csv", "r", encoding="utf-8"
-                ) as file:
+                with open("apps/fspy/hw3/phones.csv", "r", encoding="utf-8") as file:
                     reader = DictReader(file, delimiter=";")
                     for row in reader:
                         phones.objects.create(

@@ -1,0 +1,29 @@
+[
+{
+  "model": "books.book",
+  "pk": 1,
+  "fields": {
+    "title": "Django for APIs",
+    "subtitle": "Build web APIs with Python and Django",
+    "author": "William S. Vincent"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 2,
+  "fields": {
+    "title": "Django for Beginners",
+    "subtitle": "Build websites with Python & Django",
+    "author": "William S. Vincent"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 3,
+  "fields": {
+    "title": "Django for Professionals",
+    "subtitle": "Production websites with Python & Django",
+    "author": "William S. Vincent"
+  }
+}
+]

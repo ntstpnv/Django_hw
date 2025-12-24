@@ -5,66 +5,112 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Dish',
+            name="Dish",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=64, unique=True)),
-                ('slug', models.SlugField(max_length=64, unique=True)),
-                ('image', models.ImageField(upload_to='')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=64, unique=True)),
+                ("slug", models.SlugField(max_length=64, unique=True)),
+                ("image", models.ImageField(upload_to="")),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Ingredient',
+            name="Ingredient",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=64, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=64, unique=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Unit',
+            name="Unit",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=8, unique=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=8, unique=True)),
             ],
             options={
-                'ordering': ['name'],
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Recipe',
+            name="Recipe",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('amount', models.PositiveSmallIntegerField()),
-                ('dish', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw2.dish')),
-                ('ingredient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='hw2.ingredient')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("amount", models.PositiveSmallIntegerField()),
+                (
+                    "dish",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw2.dish"
+                    ),
+                ),
+                (
+                    "ingredient",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="hw2.ingredient"
+                    ),
+                ),
             ],
             options={
-                'default_related_name': 'recipe',
-                'unique_together': {('dish', 'ingredient')},
+                "default_related_name": "recipe",
+                "unique_together": {("dish", "ingredient")},
             },
         ),
         migrations.AddField(
-            model_name='dish',
-            name='ingredients',
-            field=models.ManyToManyField(related_name='dishes', through='hw2.Recipe', to='hw2.ingredient'),
+            model_name="dish",
+            name="ingredients",
+            field=models.ManyToManyField(
+                related_name="dishes", through="hw2.Recipe", to="hw2.ingredient"
+            ),
         ),
         migrations.AddField(
-            model_name='ingredient',
-            name='unit',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='ingredients', to='hw2.unit'),
+            model_name="ingredient",
+            name="unit",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="ingredients",
+                to="hw2.unit",
+            ),
         ),
     ]
