@@ -168,10 +168,4 @@ python manage.py loaddata hw5/sensors.json
 
 ![](media/hw5.gif)
 
-## HW6: CRUD в DRF
-
-дописать
-
-## HW7: Разделение доступа в DRF
-
-дописать
+переписать весь, структура поменялась

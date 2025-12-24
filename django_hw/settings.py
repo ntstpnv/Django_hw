@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+import re
+from collections import defaultdict, namedtuple
 from pathlib import Path
 
 from environ import Env
@@ -45,9 +48,46 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_filters",
     "rest_framework",
-    "base.apps.BaseConfig",
-    *[f"hw{i}.apps.HW{i}Config" for i in range(1, 7)],
+    # "rest_framework.authtoken",
 ]
+
+
+def parser():
+    pats = [
+        re.compile(r"class (.+?Config)"),
+        re.compile(r'name = "(.+?)"'),
+        re.compile(r'verbose_name = "(.*?)"'),
+    ]
+
+    groups = set()
+    apps = defaultdict(list)
+
+    for root, _, files in os.walk("apps"):
+        if "apps.py" in files:
+            file = os.path.join(root, "apps.py")
+            with open(file, encoding="utf-8") as f:
+                string = f.read()
+
+            cls, name, verbose_name = [pat.search(string)[1] for pat in pats]
+
+            INSTALLED_APPS.append(f"{name}.apps.{cls}")
+
+            if name == "apps.base":
+                continue
+
+            group = os.path.basename(os.path.dirname(root))
+            groups.add(group)
+
+            app = os.path.basename(root)
+            app = ITEM(verbose_name, app)
+            apps[group].append(app)
+
+    groups = [ITEM(group, group) for group in sorted(groups)]
+    return groups, apps
+
+
+ITEM = namedtuple("Item", ["title", "path"])
+GROUPS, APPS = parser()
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -64,7 +104,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "base.urls"
+ROOT_URLCONF = "apps.base.urls"
 
 TEMPLATES = [
     {
@@ -136,7 +176,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "hw4" / "static",
+    BASE_DIR / "apps" / "fspy" / "hw4" / "static",
 ]
 
 MEDIA_URL = "/media/"

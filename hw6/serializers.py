@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from hw6 import models
+from . import models
 
 
 class ProductSerializer(serializers.ModelSerializer):

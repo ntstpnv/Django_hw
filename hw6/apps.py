@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class HW6Config(AppConfig):
-    default_auto_field = "django.db.models.BigAutoField"
-    name = "hw6"
+class Hw6Config(AppConfig):
+    name = "apps.fspy.hw6"
+    verbose_name = "CRUD в DRF"
